@@ -93,7 +93,7 @@ struct Client {
 	int bw, oldbw;
 	unsigned int tags;
 	unsigned int switchtotag;
-	int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen;
+	int isfixed, iscentered, isfloating, isurgent, neverfocus, oldstate, isfullscreen;
 	Client *next;
 	Client *snext;
 	Monitor *mon;
@@ -139,6 +139,7 @@ typedef struct {
 	const char *title;
 	unsigned int tags;
 	unsigned int switchtotag;
+	int iscentered;
 	int isfloating;
 	int monitor;
 } Rule;
@@ -302,6 +303,7 @@ applyrules(Client *c)
 		&& (!r->class || strstr(class, r->class))
 		&& (!r->instance || strstr(instance, r->instance)))
 		{
+			c->iscentered = r->iscentered;
 			c->isfloating = r->isfloating;
 			c->tags |= r->tags;
 			for (m = mons; m && m->num != r->monitor; m = m->next);
@@ -1064,6 +1066,11 @@ manage(Window w, XWindowAttributes *wa)
 		c->isfloating = True;
 		c->x = c->mon->wx + (c->mon->ww / 2 - WIDTH(c) / 2);
 		c->y = c->mon->wy + (c->mon->wh / 2 - HEIGHT(c) / 2);
+	}
+
+	if(c->iscentered) {
+		c->x = (c->mon->mw - WIDTH(c)) / 2;
+		c->y = (c->mon->mh - HEIGHT(c)) / 2;
 	}
 
 	wc.border_width = c->bw;
