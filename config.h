@@ -1,22 +1,25 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int gappx     = 6;        /* gaps between windows */
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
+static const unsigned int gappx     = 10;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=10" };
-static const char dmenufont[]       = "monospace:size=10";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
-static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+static const char *fonts[]          = { "monospace:style=Bold:size=10" };
+static const char dmenufont[]       = "monospace:style=Bold:size=10";
+static const char norm_fg[]         = "#D8DEE9";
+static const char norm_bg[]         = "#2E3440";
+static const char norm_border[]     = "#434C5E";
+
+static const char sel_fg[]          = "#ECEFF4";
+static const char sel_bg[]          = "#81A1C1";
+static const char sel_border[]      = "#81A1C1";
+
+static const char *colors[][3] = {
+    /*               fg           bg         border                         */
+    [SchemeNorm] = { norm_fg,     norm_bg,   norm_border }, // unfocused wins
+    [SchemeSel]  = { sel_fg,      sel_bg,    sel_border  },  // focused win
 };
 
 /* tagging */
@@ -27,9 +30,11 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class                        instance    title       tags mask   switchtotag     iscentered  isfloating  monitor */
+	{ "firefoxdeveloperedition",    NULL,       NULL,       1 << 0,     0,              0,          0,          -1 },
+	{ "feh",                        NULL,       NULL,       0,          0,              0,          1,          -1 },
+	{ "Nextcloud",                  NULL,       NULL,       1 << 8,     0,              0,          1,          -1 },
+	{ "Zotero",                     NULL,       NULL,       1 << 8,     0,              0,          0,          -1 },
 };
 
 /* layout(s) */
@@ -57,7 +62,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", norm_bg, "-nf", norm_fg, "-sb", sel_bg, "-sf", sel_fg, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *kpcmd[]  = { "keepmenu", NULL };
 static const char *cpcmd[]  = { "clipmenu", NULL };
