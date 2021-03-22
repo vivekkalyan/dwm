@@ -32,7 +32,7 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class                        instance    title               tags mask   switchtotag     iscentered  isfloating  isterminal  noswallow   monitor */
-	{ "firefoxdeveloperedition",    NULL,       NULL,               1 << 0,     0,              0,          0,          0,          0,          -1 },
+	{ "firefoxdeveloperedition",    NULL,       NULL,               0,          0,              0,          0,          0,          0,          -1 },
 	{ "feh",                        NULL,       NULL,               0,          0,              0,          1,          0,          0,          -1 },
 	{ "Nextcloud",                  NULL,       NULL,               1 << 8,     0,              0,          1,          0,          0,          -1 },
 	{ "Zotero",                     NULL,       NULL,               1 << 8,     0,              0,          0,          0,          0,          -1 },
@@ -47,6 +47,7 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 
 #include "bstack.c"
 #include "gaplessgrid.c"
+#include "shiftview.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
@@ -110,6 +111,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_h,      shiftview,      { .i = -1 } },
+	{ MODKEY|ShiftMask,             XK_j,      shifttag,       { .i = -1 } },
+	{ MODKEY|ShiftMask,             XK_l,      shiftview,      { .i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,      shifttag,       { .i = +1 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
