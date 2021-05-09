@@ -37,6 +37,7 @@ static const Rule rules[] = {
 	{ "Nextcloud",                  NULL,       NULL,               1 << 8,     0,              0,          1,          0,          0,          -1 },
 	{ "Zotero",                     NULL,       NULL,               1 << 8,     0,              0,          0,          0,          0,          -1 },
 	{ "st",                         NULL,       NULL,               0,          0,              0,          0,          1,          -1,         -1 },
+	{ "Sxiv",                       NULL,       NULL,               0,          0,              1,          1,          0,          1,          -1 },
 	{ NULL,                         NULL,       "Event Tester",     0,          0,              0,          1,          0,           1,         -1 }, /* xev */
 };
 
