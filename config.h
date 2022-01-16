@@ -7,8 +7,8 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:style=Bold:size=10" };
-static const char dmenufont[]       = "monospace:style=Bold:size=10";
+static const char *fonts[]          = { "monospace:style=Bold:size=12" };
+static const char dmenufont[]       = "monospace:style=Bold:size=12";
 static const char norm_fg[]         = "#D8DEE9";
 static const char norm_bg[]         = "#2E3440";
 static const char norm_border[]     = "#434C5E";
@@ -57,6 +57,8 @@ static const Layout layouts[] = {
 	{ "TTT",      bstack },
 	{ "===",      bstackhoriz },
 	{ "[#]",      gaplessgrid },
+	{ "|M|",      centeredmaster },
+	{ ">M>",      centeredfloatingmaster },
 };
 
 /* key definitions */
@@ -76,6 +78,7 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-c", "-fn", dmen
 static const char *termcmd[]  = { "st", NULL };
 static const char *kpcmd[]  = { "keepmenu", NULL };
 static const char *cpcmd[]  = { "clipmenu", "-fn", dmenufont, "-nb", norm_bg, "-nf", norm_fg, "-sb", sel_bg, "-sf", sel_fg, NULL };
+static const char *uccmd[]  = { "unicodemenu", "-fn", dmenufont, "-nb", norm_bg, "-nf", norm_fg, "-sb", sel_bg, "-sf", sel_fg, NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
 
@@ -85,6 +88,7 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = kpcmd } },
+	{ MODKEY,                       XK_e,      spawn,          {.v = uccmd } },
 	{ MODKEY,                       XK_Insert, spawn,          {.v = cpcmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
@@ -104,6 +108,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[5]} },
+	{ MODKEY,                       XK_c,      setlayout,      {.v = &layouts[6]} },
+	{ MODKEY,                       XK_z,      setlayout,      {.v = &layouts[7]} },
 	{ MODKEY|ShiftMask,             XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_f,      togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
